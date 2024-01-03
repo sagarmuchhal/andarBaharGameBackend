@@ -13,7 +13,8 @@ const MainCardSchema = new mongoose.Schema(
     andar: Number,
     bahar: Number,
     total: Number,
-    gamecards: Array,
+    baharcards: Array,
+    andarcards: Array,
     winstatus: String,
   },
   { versionKey: false }

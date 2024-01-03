@@ -147,7 +147,8 @@ const MainCardGenerator = async () => {
     andar: 0,
     bahar: 0,
     total: 0,
-    gamecards:[],
+    baharcards:[],
+    andarcards:[],
     winstatus:""
   });
   let cardCreated = await mainCard.save();
@@ -188,7 +189,8 @@ const gameCardHandler = (socket) => {
 
     const min = 2;
     const max = 10;
-    const gamecards = [];
+    const andarcards = [];
+    const baharcards = [];
     let randomNumber = Math.floor(Math.random() * (max - min) + 1) + min;
 
     const mainCard = await MainCard.findById(gameId);
@@ -206,12 +208,19 @@ const gameCardHandler = (socket) => {
     }
 
     for (let i = 0; i < randomNumber; i++) {
-      let card = CardNameGenerator(deck[i]);
-      gamecards.push(card);
+      let card1 = CardNameGenerator(splice(deck[i],1));
+      let card2 = CardNameGenerator(splice(deck[i],1));
+      andarcards.push(card1);
+      baharcards.push(card2);
     }
-    gamecards.push(randomWinCard);
+    if (mainCard.andar > mainCard.bahar&& mainCard.total!==0) {
+      baharcards.push(randomWinCard);
+    }else if(mainCard.andar < mainCard.bahar&& mainCard.total!==0){
+      andarcards.push(randomWinCard)
+    }
 
-    mainCard.gamecards = gamecards;
+    mainCard.andarcards = andarcards;
+    mainCard.baharcards = baharcards;
 
     await mainCard.save();
     console.log("10sec", deck.length, randomNumber);
