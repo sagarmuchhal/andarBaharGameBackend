@@ -208,8 +208,10 @@ const gameCardHandler = (socket) => {
     }
 
     for (let i = 0; i < randomNumber; i++) {
-      let card1 = CardNameGenerator(splice(deck[i],1));
-      let card2 = CardNameGenerator(splice(deck[i],1));
+      const drawcard1=splice(deck[i],1)
+      const drawcard2=splice(deck[i],1)
+      let card1 = CardNameGenerator(drawcard1[0]);
+      let card2 = CardNameGenerator(drawcard2[0]);
       andarcards.push(card1);
       baharcards.push(card2);
     }
