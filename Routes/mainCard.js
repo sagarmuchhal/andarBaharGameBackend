@@ -188,7 +188,7 @@ const gameCardHandler = (socket) => {
     console.log("gameId-179",gameId);
 
     const min = 2;
-    const max = 10;
+    const max = 5;
     const andarcards = [];
     const baharcards = [];
     let randomNumber = Math.floor(Math.random() * (max - min) + 1) + min;
