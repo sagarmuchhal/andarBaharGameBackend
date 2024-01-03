@@ -19,6 +19,10 @@ const io = socketIO(server);
 
 const userConnections = new Map();
 
+app.get('/',()=>{
+  console.log("server is running");
+})
+
 let userId;
 let flag=true
 io.on("connection", (socket) => {
