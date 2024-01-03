@@ -19,8 +19,8 @@ const io = socketIO(server);
 
 const userConnections = new Map();
 
-app.get('/',()=>{
-  console.log("server is running");
+app.get('/',(req,res)=>{
+  res.send("server is running");
 })
 
 let userId;
