@@ -24,46 +24,26 @@ app.get('/',(req,res)=>{
 })
 
 let userId;
-let flag=true
 io.on("connection", (socket) => {
   console.log("A user connected");
   // console.log(socket);
   userId = socket.handshake.query.userId;
-  // if (userConnections.has(userId)) {
-  //   registerUser(userId,socket.id,socket);
 
-  //   const changeStream = GameState.watch();
-  //   changeStream.on("change", (change) => {
-  //     // Send the updated game state to the connected client
-  //     socket.emit("gameUpdate", change.updateDescription.updatedFields);
-  //   });
-  // } else {
   userConnections.set(userId, socket.id);
   console.log(userConnections);
 
   registerUser(userId, socket.id, socket);
 
   handleBait(userId, socket);
-if(flag){
-  flag=false
-  setTimeout(() => {
-    gameCardHandler(socket)
-    flag=true
-  }, 1000);   
-}
 
   const changeStream = GameState.watch();
-  // const maincardStream=MainCard.watch()
+
   changeStream.on("change", async(change) => {
     const main_card=await MainCard.findById(cardID.cardID)
     // Send the updated game state to the connected client
     socket.emit("gameUpdate", {gamestate:change.updateDescription.updatedFields,mainCard:main_card});
   });
-  // maincardStream.on("change", (change) => {
-  //   // Send the updated game state to the connected client
-  //   socket.emit("mainCard", change.fullDocument);
-  // });
-  // }
+
   let count = 0;
   // console.log(socket);
   socket.on("click", () => {
