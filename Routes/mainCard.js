@@ -23,6 +23,9 @@ const TimerMainCardFunction = async () => {
 
           value = 30;
         }
+        if(value==10){
+          gameCardHandler(cardID.cardID)
+        }
         let existingDocument = await GameState.findById("val1");
 
         // Update the existing document or create a new one
@@ -130,9 +133,9 @@ const CardNameGenerator = (card) => {
   return createCard;
 };
 
-const gameCardHandler = (socket) => {
-  socket.on("gameCards", async (gameId) => {
-    console.log("gameId-179", gameId);
+const gameCardHandler = async(gameCardId) => {
+  // socket.on("gameCards", async (gameCardId) => {
+    console.log("gameCardId-179", gameCardId);
 
     const min = 2;
     const max = 5;
@@ -140,7 +143,7 @@ const gameCardHandler = (socket) => {
     const baharcards = [];
     let randomNumber = Math.floor(Math.random() * (max - min) + 1) + min;
 
-    const mainCard = await MainCard.findById(gameId);
+    const mainCard = await MainCard.findById(gameCardId);
 
     // if (!mainCard) {
     //   socket.emit("gamecardError", { msg: "maincard not Found" });
@@ -173,7 +176,7 @@ const gameCardHandler = (socket) => {
 
     await mainCard.save();
     console.log("10sec", deck.length, randomNumber);
-  });
+  // });
 };
 
 module.exports = { TimerMainCardFunction, cardID, gameCardHandler };
