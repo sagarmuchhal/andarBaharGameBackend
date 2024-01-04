@@ -1,63 +1,7 @@
 const { GameState, MainCard } = require("../models/test.model");
 
-const dummyDeck = [
-  "2 of Hearts",
-  "3 of Hearts",
-  "4 of Hearts",
-  "5 of Hearts",
-  "6 of Hearts",
-  "7 of Hearts",
-  "8 of Hearts",
-  "9 of Hearts",
-  "10 of Hearts",
-  "Jack of Hearts",
-  "Queen of Hearts",
-  "King of Hearts",
-  "Ace of Hearts",
-  "2 of Diamonds",
-  "3 of Diamonds",
-  "4 of Diamonds",
-  "5 of Diamonds",
-  "6 of Diamonds",
-  "7 of Diamonds",
-  "8 of Diamonds",
-  "9 of Diamonds",
-  "10 of Diamonds",
-  "Jack of Diamonds",
-  "Queen of Diamonds",
-  "King of Diamonds",
-  "Ace of Diamonds",
-  "2 of Clubs",
-  "3 of Clubs",
-  "4 of Clubs",
-  "5 of Clubs",
-  "6 of Clubs",
-  "7 of Clubs",
-  "8 of Clubs",
-  "9 of Clubs",
-  "10 of Clubs",
-  "Jack of Clubs",
-  "Queen of Clubs",
-  "King of Clubs",
-  "Ace of Clubs",
-  "2 of Spades",
-  "3 of Spades",
-  "4 of Spades",
-  "5 of Spades",
-  "6 of Spades",
-  "7 of Spades",
-  "8 of Spades",
-  "9 of Spades",
-  "10 of Spades",
-  "Jack of Spades",
-  "Queen of Spades",
-  "King of Spades",
-  "Ace of Spades",
-];
-
 const cardID = { cardID: null };
 const TimerMainCardFunction = async () => {
-
   // const startTimer=()=>{
   //   setTimeout(() => {
   //     timer()
@@ -147,17 +91,20 @@ const MainCardGenerator = async () => {
     andar: 0,
     bahar: 0,
     total: 0,
-    baharcards:[],
-    andarcards:[],
-    winstatus:""
+    baharcards: [],
+    andarcards: [],
+    winstatus: "",
   });
   let cardCreated = await mainCard.save();
   cardID.cardID = cardCreated._id;
   console.log(cardID);
   // OtherCards
-  const OtherCards = deck.filter(
-    (card) => card.rank == drawnCard.rank && card.suit !== drawnCard.suit
-  );
+  const OtherCards = deck.filter((card, index) => {
+    if(card.rank == drawnCard.rank && card.suit !== drawnCard.suit){
+      let cardl=deck.splice(index,1)
+      return cardl;
+    }
+  });
   console.log(OtherCards);
   if (OtherCards.length > 0) {
     const randomCardIndex = Math.floor(Math.random() * OtherCards.length);
@@ -185,7 +132,7 @@ const CardNameGenerator = (card) => {
 
 const gameCardHandler = (socket) => {
   socket.on("gameCards", async (gameId) => {
-    console.log("gameId-179",gameId);
+    console.log("gameId-179", gameId);
 
     const min = 2;
     const max = 5;
@@ -198,27 +145,27 @@ const gameCardHandler = (socket) => {
     // if (!mainCard) {
     //   socket.emit("gamecardError", { msg: "maincard not Found" });
     // }
-    if (mainCard.andar > mainCard.bahar&& mainCard.total!==0) {
+    if (mainCard.andar > mainCard.bahar && mainCard.total !== 0) {
       if (randomNumber % 2 == 0) {
         randomNumber += 1;
       }
       mainCard.winstatus = "Bahar";
-    }else if(mainCard.andar < mainCard.bahar&& mainCard.total!==0){
-      mainCard.winstatus="Andar"
+    } else if (mainCard.andar < mainCard.bahar && mainCard.total !== 0) {
+      mainCard.winstatus = "Andar";
     }
 
     for (let i = 0; i < randomNumber; i++) {
-      const drawcard1=deck.splice(deck[i],1)
-      const drawcard2=deck.splice(deck[i],1)
+      const drawcard1 = deck.splice(deck[i], 1);
+      const drawcard2 = deck.splice(deck[i], 1);
       let card1 = CardNameGenerator(drawcard1[0]);
       let card2 = CardNameGenerator(drawcard2[0]);
       andarcards.push(card1);
       baharcards.push(card2);
     }
-    if (mainCard.andar > mainCard.bahar&& mainCard.total!==0) {
+    if (mainCard.andar > mainCard.bahar && mainCard.total !== 0) {
       baharcards.push(randomWinCard);
-    }else if(mainCard.andar < mainCard.bahar&& mainCard.total!==0){
-      andarcards.push(randomWinCard)
+    } else if (mainCard.andar < mainCard.bahar && mainCard.total !== 0) {
+      andarcards.push(randomWinCard);
     }
 
     mainCard.andarcards = andarcards;
