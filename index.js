@@ -36,14 +36,6 @@ io.on("connection", (socket) => {
 
   handleBait(userId, socket);
 
-  const changeStream = GameState.watch();
-
-  changeStream.on("change", async(change) => {
-    const main_card=await MainCard.findById(cardID.cardID)
-    // Send the updated game state to the connected client
-    socket.emit("gameUpdate", {gamestate:change.updateDescription.updatedFields,mainCard:main_card});
-  });
-
   let count = 0;
   // console.log(socket);
   socket.on("click", () => {
@@ -59,7 +51,13 @@ io.on("connection", (socket) => {
 });
 
 // timer and main card function
+  const changeStream = GameState.watch();
 
+  changeStream.on("change", async(change) => {
+    const main_card=await MainCard.findById(cardID.cardID)
+    // Send the updated game state to the connected client
+    socket.emit("gameUpdate", {gamestate:change.updateDescription.updatedFields,mainCard:main_card});
+  });
 TimerMainCardFunction();
 
 server.listen(PORT, async () => {
