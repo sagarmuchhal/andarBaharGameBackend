@@ -35,14 +35,15 @@ io.on("connection", (socket) => {
   registerUser(userId, socket.id, socket);
 
   handleBait(userId, socket);
+  
+   const changeStream = GameState.watch();
 
-  let count = 0;
-  // console.log(socket);
-  socket.on("click", () => {
-    count = count + 1;
-    socket.emit("clickrec", socket.handshake.query.userId);
+  changeStream.on("change", async(change) => {
+    const main_card=await MainCard.findById(cardID.cardID)
+    // Send the updated game state to the connected client
+    socket.emit("gameUpdate", {gamestate:change.updateDescription.updatedFields,mainCard:main_card});
   });
-
+  
   socket.on("disconnect", () => {
     console.log("A user disconnected");
     // Clean up resources associated with the user ID when the socket disconnects
@@ -51,13 +52,7 @@ io.on("connection", (socket) => {
 });
 
 // timer and main card function
-  const changeStream = GameState.watch();
-
-  changeStream.on("change", async(change) => {
-    const main_card=await MainCard.findById(cardID.cardID)
-    // Send the updated game state to the connected client
-    socket.emit("gameUpdate", {gamestate:change.updateDescription.updatedFields,mainCard:main_card});
-  });
+  
 TimerMainCardFunction();
 
 server.listen(PORT, async () => {
