@@ -155,7 +155,7 @@ const gameCardHandler = async(gameCardId) => {
       mainCard.winstatus = "Bahar";
     } else if (mainCard.andar < mainCard.bahar && mainCard.total !== 0) {
       mainCard.winstatus = "Andar";
-    }else if (mainCard.andar = mainCard.bahar){
+    }else if (mainCard.andar == mainCard.bahar){
       mainCard.winstatus = "Andar";
     }
 
@@ -171,7 +171,7 @@ const gameCardHandler = async(gameCardId) => {
       baharcards.push(randomWinCard);
     } else if (mainCard.andar < mainCard.bahar && mainCard.total !== 0) {
       andarcards.push(randomWinCard);
-    }else if (mainCard.andar = mainCard.bahar){
+    }else if (mainCard.andar == mainCard.bahar){
       andarcards.push(randomWinCard);
     }
 
