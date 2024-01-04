@@ -52,7 +52,7 @@ const TimerMainCardFunction = async () => {
 let deck = [];
 let randomWinCard;
 const MainCardGenerator = async () => {
-  const suits = ["Hearts", "Diamonds", "Clubs", "Spades"];
+  const suits = ["hearts", "diamonds", "clubs", "spades"];
   const ranks = [
     "2",
     "3",
@@ -63,10 +63,10 @@ const MainCardGenerator = async () => {
     "8",
     "9",
     "10",
-    "Jack",
-    "Queen",
-    "King",
-    "Ace",
+    "jack",
+    "queen",
+    "king",
+    "ace",
   ];
 
   // Create a deck with multiple suits for each rank
@@ -126,7 +126,7 @@ const shuffle = (deck) => {
 // CardNameGenerator
 const CardNameGenerator = (card) => {
   console.log("card", card);
-  const createCard = `${card.rank} of ${card.suit}`;
+  const createCard = `${card.suit}_${card.rank}.png`;
   return createCard;
 };
 
