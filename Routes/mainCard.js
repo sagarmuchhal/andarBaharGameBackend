@@ -38,13 +38,16 @@ const TimerMainCardFunction = async () => {
           await existingDocument.save();
         }
 
-        if (value == 10) {
+        if (value == 11) {
           gameCardHandler(cardID.cardID)
           MainCardGenerator();
           // drawcard
           startTimer()
           value = 30;
           
+          clearInterval(Interval1);
+        }
+        if (value == 9) {
           clearInterval(Interval1);
         }
       }, 1000);
