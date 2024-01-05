@@ -2,24 +2,24 @@ const { GameState, MainCard } = require("../models/test.model");
 
 const cardID = { cardID: null };
 const TimerMainCardFunction = async () => {
-  // const startTimer=()=>{
-  //   setTimeout(() => {
-  //     timer()
-  //   }, 3000);
-  // }
+  const startTimer=()=>{
+    setTimeout(() => {
+      timer()
+    }, 12000);
+  }
 
   try {
     //   socket.on("timer1", () => {
     function timer() {
-      let value = 5;
+      let value = 30;
       let Interval1 = setInterval(async () => {
         value = value - 1;
 
-        if (value == 0) {
-          // startTimer()
+        if (value == 20) {
           MainCardGenerator();
           // drawcard
-          // clearInterval(Interval1);
+          clearInterval(Interval1);
+          startTimer()
 
           value = 30;
         }
