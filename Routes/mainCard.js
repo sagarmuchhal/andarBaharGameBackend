@@ -15,9 +15,9 @@ const TimerMainCardFunction = async () => {
       let Interval1 = setInterval(async () => {
         value = value - 1;
 
-        if(value==10){
-          gameCardHandler(cardID.cardID)
-        }
+        // if(value==10){
+        //   gameCardHandler(cardID.cardID)
+        // }
 
         
         let existingDocument = await GameState.findById("val1");
@@ -39,6 +39,7 @@ const TimerMainCardFunction = async () => {
         }
 
         if (value == 10) {
+          gameCardHandler(cardID.cardID)
           MainCardGenerator();
           // drawcard
           startTimer()
