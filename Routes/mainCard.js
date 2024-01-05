@@ -4,10 +4,10 @@ const cardID = { cardID: null };
 const TimerMainCardFunction = async () => {
   // MainCardGenerator()
   const startTimer=()=>{
+    MainCardGenerator();
     setTimeout(() => {
-      MainCardGenerator();
       timer()
-    }, 10000);
+    }, 12000);
   }
 
   try {
@@ -47,12 +47,13 @@ const TimerMainCardFunction = async () => {
           }
           // MainCardGenerator();
           // drawcard
-          startTimer()
+          
           // value = 30;
           
           // clearInterval(Interval1);
         }
         if (value == 9) {
+          startTimer()
           clearInterval(Interval1);
         }
       }, 1000);
