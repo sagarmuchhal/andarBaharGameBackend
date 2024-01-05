@@ -7,7 +7,7 @@ const TimerMainCardFunction = async () => {
     MainCardGenerator();
     setTimeout(() => {
       timer()
-    }, 12000);
+    }, 10000);
   }
 
   try {
@@ -52,7 +52,7 @@ const TimerMainCardFunction = async () => {
           
           // clearInterval(Interval1);
         }
-        if (value == 9) {
+        if (value == 0) {
           startTimer()
           clearInterval(Interval1);
         }
