@@ -47,7 +47,7 @@ const TimerMainCardFunction = async () => {
           startTimer()
           value = 30;
           
-          clearInterval(Interval1);
+          // clearInterval(Interval1);
         }
         if (value == 9) {
           clearInterval(Interval1);
