@@ -4,7 +4,7 @@ const { GameUser } = require("../models/user.model");
 const handleBait = (userId, socket) => {
   socket.on("bait", async (data) => {
     const { baitType, coins,cardId } = data;
-    console.log("object",cardId);
+    console.log("baitcardid",cardId);
     try {
       const user = await GameUser.findOne({ userId: userId });
       if (!user) {
@@ -12,9 +12,11 @@ const handleBait = (userId, socket) => {
       }
       let updatedCoins = user.coins - coins;
 
-      user.coins = updatedCoins;
       const mainCard = await MainCard.findById(cardId);
-
+      if (!mainCard) {
+        return;
+      }
+      user.coins = updatedCoins;
       if (baitType == "andar") {
         let sum = mainCard.andar + coins;
         mainCard.andar = sum;
