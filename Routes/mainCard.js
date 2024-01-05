@@ -7,7 +7,7 @@ const TimerMainCardFunction = async () => {
     MainCardGenerator();
     setTimeout(() => {
       timer()
-    }, 10000);
+    }, 5000);
   }
 
   try {
