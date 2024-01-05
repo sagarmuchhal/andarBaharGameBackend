@@ -41,10 +41,10 @@ const TimerMainCardFunction = async () => {
         if (value == 10) {
           MainCardGenerator();
           // drawcard
-          clearInterval(Interval1);
           startTimer()
-
           value = 30;
+          
+          clearInterval(Interval1);
         }
       }, 1000);
     }
