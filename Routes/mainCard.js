@@ -2,7 +2,7 @@ const { GameState, MainCard } = require("../models/test.model");
 
 const cardID = { cardID: null };
 const TimerMainCardFunction = async () => {
-  MainCardGenerator()
+  // MainCardGenerator()
   const startTimer=()=>{
     setTimeout(() => {
       MainCardGenerator();
