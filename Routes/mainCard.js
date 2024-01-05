@@ -14,19 +14,12 @@ const TimerMainCardFunction = async () => {
       let value = 30;
       let Interval1 = setInterval(async () => {
         value = value - 1;
-        
+
         if(value==10){
           gameCardHandler(cardID.cardID)
         }
 
-        if (value == 10) {
-          MainCardGenerator();
-          // drawcard
-          clearInterval(Interval1);
-          startTimer()
-
-          value = 30;
-        }
+        
         let existingDocument = await GameState.findById("val1");
 
         // Update the existing document or create a new one
@@ -43,6 +36,15 @@ const TimerMainCardFunction = async () => {
           existingDocument.value = value;
           // existingDocument.state = "Waiting";
           await existingDocument.save();
+        }
+
+        if (value == 10) {
+          MainCardGenerator();
+          // drawcard
+          clearInterval(Interval1);
+          startTimer()
+
+          value = 30;
         }
       }, 1000);
     }
