@@ -41,14 +41,14 @@ const TimerMainCardFunction = async () => {
         }
 
         if (value == 11) {
-          if(cardID.cardID){
+          if(cardID.cardID!==null){
             gameCardHandler(cardID.cardID)
 
           }
           // MainCardGenerator();
           // drawcard
           startTimer()
-          value = 30;
+          // value = 30;
           
           // clearInterval(Interval1);
         }
