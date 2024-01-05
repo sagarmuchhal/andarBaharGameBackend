@@ -4,6 +4,7 @@ const cardID = { cardID: null };
 const TimerMainCardFunction = async () => {
   const startTimer=()=>{
     setTimeout(() => {
+      MainCardGenerator();
       timer()
     }, 12000);
   }
@@ -40,7 +41,7 @@ const TimerMainCardFunction = async () => {
 
         if (value == 11) {
           gameCardHandler(cardID.cardID)
-          MainCardGenerator();
+          // MainCardGenerator();
           // drawcard
           startTimer()
           value = 30;
