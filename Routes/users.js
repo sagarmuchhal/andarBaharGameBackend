@@ -1,32 +1,38 @@
 const { GameUser } = require("../models/user.model");
+const { register, login } = require('../controller/user.controller');
+const express = require("express");
+const router = express.Router();
+
+router.post("/register", register);
+router.post("/login", login);
+
 // userId,socket.id,socket
-const registerUser = async (userId,socketId,socket) => {
+const registerUser = async(userId, socketId, socket) => {
+    try {
 
-  try {
-        
-    let user= await GameUser.findOne({'userId':userId})
+        let user = await GameUser.findOne({ 'userId': userId })
 
-    if (!user){
+        if (!user) {
 
-      let userObj=new GameUser({
-          userId,
-          coins:1000,
-      })
-  
-      user=await userObj.save()
-      console.log(user);
-      socket.emit("userDetails", {
-        user,
-      });
-    }else{
-      socket.emit("userDetails", {
-        user,
-      });
+            let userObj = new GameUser({
+                userId,
+                coins: 1000,
+            })
+
+            user = await userObj.save()
+            console.log(user);
+            socket.emit("userDetails", {
+                user,
+            });
+        } else {
+            socket.emit("userDetails", {
+                user,
+            });
+        }
+
+    } catch (error) {
+        console.error("Error initializing game state:", error.message);
     }
-
-  } catch (error) {
-    console.error("Error initializing game state:", error.message);
-  }
 };
 module.exports = { registerUser };
 
@@ -49,3 +55,4 @@ module.exports = { registerUser };
 //   }
 // };
 // module.exports = { initializeGameState };
+module.exports = router;

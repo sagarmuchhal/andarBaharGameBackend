@@ -1,14 +1,13 @@
 const { default: mongoose } = require("mongoose");
 
 const gameStateSchema = new mongoose.Schema({
-  value: String,
-  state: String,
-  _id: String,
-  status: String,
+    value: String,
+    state: String,
+    _id: String,
+    status: String,
 });
 
-const MainCardSchema = new mongoose.Schema(
-  {
+const MainCardSchema = new mongoose.Schema({
     main_card: String,
     andar: Number,
     bahar: Number,
@@ -16,9 +15,7 @@ const MainCardSchema = new mongoose.Schema(
     baharcards: Array,
     andarcards: Array,
     winstatus: String,
-  },
-  { versionKey: false }
-);
+}, { versionKey: false });
 
 const MainCard = mongoose.model("MainCard", MainCardSchema);
 const GameState = mongoose.model("GameState", gameStateSchema);
